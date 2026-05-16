@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rambagat & Nirmala | Royal Wedding Portfolio</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@200;300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <style>
+        :root {
+            --royal-gold: #D4AF37;
+            --dark-gold: #996515;
+            --light-gold: #fcf6ba;
+            --matte-black: #0a0a0a;
+            --glass-bg: rgba(10, 10, 10, 0.65);
+            --glass-border: rgba(212, 175, 55, 0.25);
+            --gold-gradient: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--matte-black);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto; 
+            font-family: 'Montserrat', sans-serif;
+            background: radial-gradient(circle at center, #151515 0%, #000000 100%);
+        }
+
+        #particles-js {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
+            pointer-events: none;
+        }
+
+        /* INTRO SCREEN TAG */
+        .intro-tag {
+            position: absolute; bottom: 30px; left: 0; width: 100%;
+            text-align: center; font-family: 'Montserrat', sans-serif;
+            font-size: 11px; font-weight: 600; letter-spacing: 6px; text-transform: uppercase;
+            background: linear-gradient(90deg, #996515 0%, #fcf6ba 50%, #996515 100%);
+            background-size: 200% auto; -webkit-background-clip: text; background-clip: text; 
+            -webkit-text-fill-color: transparent; color: transparent; 
+            animation: goldShine 3s linear infinite; z-index: 100; pointer-events: none;
+        }
+
+        @keyframes goldShine {
+            to { background-position: 200% center; }
+        }
+
+        /* =========================================
+           SCREEN 1: DEVICE SELECTION (INTRO)
+           ========================================= */
+        #intro-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 50;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; background: radial-gradient(circle at center, #151515 0%, #000000 100%);
+        }
+
+        .intro-text-wrapper { margin-bottom: 50px; z-index: 51; position: relative; }
+
+        .intro-heading {
+            font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; letter-spacing: 4px;
+            background: var(--gold-gradient); -webkit-background-clip: text; background-clip: text; 
+            -webkit-text-fill-color: transparent; color: transparent; margin-bottom: 15px; text-transform: uppercase;
+        }
+
+        .intro-subtext {
+            font-size: 11px; font-weight: 200; letter-spacing: 5px;
+            color: #aaa; text-transform: uppercase; line-height: 1.8;
+            max-width: 500px; margin: 0 auto;
+        }
+
+        .device-cards-container {
+            display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; z-index: 51; position: relative;
+        }
+
+        .device-card {
+            background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border); border-radius: 10px; width: 180px; height: 220px;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            color: white; cursor: pointer; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative; overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.02);
+        }
+
+        .device-card::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transform: skewX(-25deg); transition: 0.5s;
+        }
+
+        .device-card:hover {
+            transform: translateY(-10px) scale(1.02); border-color: var(--royal-gold);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 30px rgba(212, 175, 55, 0.15);
+        }
+
+        .device-card:hover::before { left: 200%; }
+
+        .device-card i {
+            font-size: 45px; color: var(--royal-gold); margin-bottom: 25px;
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.4)); transition: 0.3s;
+        }
+
+        .device-card:hover i { transform: scale(1.1); color: var(--light-gold); }
+        .device-card span { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 400; letter-spacing: 4px; color: #ddd; }
+
+        /* =========================================
+           SCREEN 2: LOGIN PAGE (SIZE FIXED & COMPACT)
+           ========================================= */
+        #login-wrapper {
+            position: relative; z-index: 10; display: none;
+            width: 100%; min-height: 100vh; padding: 20px 0;
+            justify-content: center; align-items: center;
+        }
+
+        .wedding-card {
+            background: var(--glass-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border); border-radius: 8px; 
+            padding: 35px 30px 25px; 
+            text-align: center; position: relative;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.9), 0 0 40px rgba(212, 175, 55, 0.05);
+            width: 100%; max-width: 380px; 
+            margin: auto;
+        }
+
+        .card-border-inner {
+            position: absolute; top: 12px; left: 12px; right: 12px; bottom: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.3); pointer-events: none;
+        }
+
+        .sub-title {
+            font-family: 'Montserrat', sans-serif; font-weight: 200;
+            letter-spacing: 6px; font-size: 9px; color: var(--royal-gold);
+            margin-bottom: 8px; text-transform: uppercase;
+        }
+
+        .login-h1 {
+            font-family: 'Cormorant Garamond', serif; font-weight: 300; 
+            font-size: 32px; 
+            margin-bottom: 20px;
+            background: var(--gold-gradient); -webkit-background-clip: text; background-clip: text; 
+            -webkit-text-fill-color: transparent; color: transparent; 
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));
+        }
+
+        .input-group { margin-bottom: 12px; position: relative; text-align: left; }
+        
+        .input-group i {
+            position: absolute; left: 0; top: 10px; color: var(--royal-gold);
+            font-size: 13px; opacity: 0.7;
+        }
+
+        /* Updated Input to type="password" for the pin code */
+        input {
+            width: 100%; padding: 10px 10px 10px 28px; 
+            background: transparent; border: none; border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff; font-family: 'Montserrat', sans-serif; font-size: 11px;
+            letter-spacing: 2px; outline: none; transition: 0.4s;
+        }
+        
+        input::placeholder { color: rgba(255, 255, 255, 0.3); font-weight: 200; }
+        input:focus { border-bottom: 1px solid var(--royal-gold); background: rgba(212, 175, 55, 0.03); }
+
+        .btn {
+            width: 100%; padding: 12px; margin-top: 5px;
+            background: var(--gold-gradient); border: none; color: #000;
+            font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 10px;
+            letter-spacing: 3px; cursor: pointer; text-transform: uppercase; transition: 0.4s;
+            position: relative; overflow: hidden; border-radius: 3px;
+        }
+        
+        .btn:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.6), 0 0 20px rgba(212, 175, 55, 0.3); 
+        }
+
+        .btn-gps { 
+            background: transparent; border: 1px solid rgba(212, 175, 55, 0.5); 
+            color: var(--royal-gold); margin-bottom: 10px; margin-top: 15px;
+        }
+        .btn-gps:hover { background: rgba(212, 175, 55, 0.05); }
+
+        /* DEVELOPER TAG INSIDE CARD */
+        #login-tag {
+            position: relative; bottom: auto; margin-top: 15px; margin-bottom: 0;
+            font-size: 9px; text-align: center; width: 100%;
+            font-family: 'Montserrat', sans-serif; font-weight: 600; letter-spacing: 6px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #996515 0%, #fcf6ba 50%, #996515 100%);
+            background-size: 200% auto; -webkit-background-clip: text; background-clip: text; 
+            -webkit-text-fill-color: transparent; color: transparent; 
+            animation: goldShine 3s linear infinite; display: none;
+        }
+
+        /* =========================================
+           CINEMATIC MODAL (POPUP)
+           ========================================= */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            display: none; justify-content: center; align-items: center; z-index: 999; opacity: 0;
+        }
+
+        .premium-modal {
+            background: #080808; padding: 30px 25px; 
+            border: 1px solid var(--royal-gold); border-radius: 5px;
+            text-align: center; max-width: 320px; width: 90%;
+            box-shadow: 0 20px 50px rgba(0,0,0,1), inset 0 0 30px rgba(212,175,55,0.05);
+            transform: scale(0.9);
+        }
+
+        .modal-icon {
+            font-size: 35px; color: var(--royal-gold); margin-bottom: 15px;
+            animation: pulseGlow 2s infinite;
+        }
+
+        .modal-title {
+            font-family: 'Cormorant Garamond', serif; font-size: 22px; color: white;
+            margin-bottom: 10px; letter-spacing: 2px;
+        }
+
+        .modal-text {
+            font-family: 'Montserrat', sans-serif; font-size: 10px; color: #aaa;
+            letter-spacing: 1px; margin-bottom: 25px; line-height: 1.6;
+        }
+
+        @keyframes pulseGlow {
+            0% { text-shadow: 0 0 10px rgba(212,175,55,0.2); }
+            50% { text-shadow: 0 0 20px rgba(212,175,55,0.8); }
+            100% { text-shadow: 0 0 10px rgba(212,175,55,0.2); }
+        }
+
+        .loader {
+            display: none; width: 16px; height: 16px; border: 2px solid rgba(0,0,0,0.3);
+            border-top: 2px solid #000; border-radius: 50%; 
+            animation: spin 1s linear infinite; margin: 0 auto;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <div id="particles-js"></div>
+
+    <div id="intro-screen">
+        <div class="intro-text-wrapper">
+            <h2 class="intro-heading">For Better Experience</h2>
+            <p class="intro-subtext">Open this website on Laptop or PC<br>and connect your device to LED.</p>
+        </div>
+        
+        <div class="device-cards-container">
+            <div class="device-card" onclick="selectDevice('mobile')">
+                <i class="fas fa-mobile-screen"></i>
+                <span>MOBILE</span>
+            </div>
+            <div class="device-card" onclick="selectDevice('laptop')">
+                <i class="fas fa-laptop"></i>
+                <span>LAPTOP</span>
+            </div>
+        </div>
+
+        <div class="intro-tag">Developed By Sahil</div>
+    </div>
+
+    <div id="login-wrapper">
+        <div class="wedding-card" id="login-card">
+            <div class="card-border-inner"></div>
+            
+            <p class="sub-title">The Royal Wedding Of</p>
+            <h1 class="login-h1">Rambagat & Nirmala</h1>
+            <p class="sub-title" style="margin-bottom: 25px; letter-spacing: 4px;">Exclusive Access</p>
+
+            <form id="weddingForm">
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="fullName" placeholder="HONORED GUEST NAME" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-phone"></i>
+                    <input type="tel" id="mobileNum" placeholder="CONTACT NUMBER" maxlength="10" required>
+                </div>
+                
+                <div class="input-group">
+                    <i class="fas fa-location-crosshairs"></i>
+                    <input type="text" id="liveLocation" placeholder="GPS STATUS: PENDING" readonly>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-key"></i>
+                    <input type="password" id="pinCode" placeholder="SECRET ACCESS PIN (372008)" required>
+                </div>
+
+                <button type="button" class="btn btn-gps" onclick="getLocation()">
+                    <i class="fas fa-satellite-dish" style="margin-right: 8px;"></i> Enable GPS Access
+                </button>
+                <button type="submit" class="btn" id="loginBtn">
+                    <span id="btnText">Unlock Invitation</span>
+                    <div class="loader" id="loader"></div>
+                </button>
+            </form>
+            
+            <div id="login-tag"></div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="customModal">
+        <div class="premium-modal" id="modalContent">
+            <i class="fas fa-shield-halved modal-icon" id="modalIcon"></i>
+            <h2 class="modal-title" id="modalTitle">Access Required</h2>
+            <p class="modal-text" id="modalMsg">Location access is required to continue.</p>
+            <button class="btn" onclick="closeModal()" id="modalBtn">UNDERSTOOD</button>
+        </div>
+    </div>
+
+    <script>
+        // Start Particles
+        particlesJS('particles-js', {
+            particles: { 
+                number: { value: 60 }, color: { value: '#D4AF37' }, shape: { type: "circle" },
+                opacity: { value: 0.4, random: true, anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false } }, 
+                size: { value: 2, random: true }, move: { enable: true, speed: 0.8, direction: 'top', random: true, out_mode: 'out' } 
+            }, interactivity: { events: { onhover: { enable: false }, onclick: { enable: false } } }, retina_detect: true
+        });
+
+        // Initial Animations
+        gsap.fromTo(".intro-heading", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 1.5, ease: "power3.out", delay: 0.2 });
+        gsap.fromTo(".intro-subtext", { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 1.5, ease: "power3.out", delay: 0.4 });
+        gsap.fromTo(".device-card", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1, stagger: 0.2, ease: "back.out(1.5)", delay: 0.6 });
+        gsap.fromTo(".intro-tag", { opacity: 0 }, { opacity: 1, duration: 2, delay: 1 });
+
+        // Device Select Function
+        function selectDevice(deviceType) {
+            document.body.classList.add(deviceType === 'mobile' ? 'is-mobile' : 'is-laptop');
+
+            gsap.to("#intro-screen", {
+                opacity: 0, scale: 1.05, duration: 0.8, ease: "power2.inOut",
+                onComplete: () => {
+                    document.getElementById("intro-screen").style.display = "none";
+                    
+                    const loginWrapper = document.getElementById("login-wrapper");
+                    loginWrapper.style.display = "flex";
+                    
+                    document.getElementById("login-tag").style.display = "block";
+                    
+                    gsap.fromTo("#login-card", { opacity: 0, y: 50, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 1.5, ease: "power4.out" });
+                    gsap.fromTo("#login-tag", { opacity: 0 }, { opacity: 1, duration: 1.5, delay: 0.5 });
+                }
+            });
+        }
+
+        // GPS & Modals Logic
+        let locationFixed = false;
+        const modalOverlay = document.getElementById('customModal');
+        const modalContent = document.getElementById('modalContent');
+
+        function openModal(title, message, iconClass, btnText, isGpsError = false) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalMsg').innerText = message;
+            document.getElementById('modalIcon').className = `modal-icon ${iconClass}`;
+            const btn = document.getElementById('modalBtn');
+            btn.innerText = btnText;
+            
+            if(isGpsError) { btn.onclick = () => { closeModal(); getLocation(); }; } 
+            else { btn.onclick = closeModal; }
+
+            modalOverlay.style.display = "flex";
+            gsap.to(modalOverlay, { opacity: 1, duration: 0.3 });
+            gsap.to(modalContent, { scale: 1, duration: 0.5, ease: "back.out(1.5)" });
+        }
+
+        function closeModal() {
+            gsap.to(modalContent, { scale: 0.9, duration: 0.3, ease: "power2.in" });
+            gsap.to(modalOverlay, { opacity: 0, duration: 0.3, onComplete: () => { modalOverlay.style.display = "none"; }});
+        }
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                const locInput = document.getElementById('liveLocation');
+                locInput.value = "ACQUIRING SATELLITE LINK...";
+                
+                navigator.geolocation.getCurrentPosition((pos) => {
+                    locInput.value = `SECURED: ${pos.coords.latitude.toFixed(4)}, ${pos.coords.longitude.toFixed(4)}`;
+                    locInput.style.color = "var(--royal-gold)";
+                    locationFixed = true;
+                }, () => {
+                    locInput.value = "GPS STATUS: FAILED";
+                    openModal("Location Required", "Location access is mandatory for royal security protocols.", "fas fa-location-dot", "ENABLE LOCATION", true);
+                });
+            } else {
+                openModal("Error", "GPS is not supported on this device.", "fas fa-triangle-exclamation", "CLOSE");
+            }
+        }
+
+        // Form Submit
+        document.getElementById('weddingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('fullName').value;
+            const phone = document.getElementById('mobileNum').value;
+            const pin = document.getElementById('pinCode').value;
+
+            if (phone.length !== 10 || isNaN(phone)) { return openModal("Invalid Contact", "Please enter a valid 10-digit mobile number.", "fas fa-phone-slash", "RETRY"); }
+            if (!locationFixed) { return openModal("Security Alert", "Please enable GPS uplink before proceeding.", "fas fa-satellite", "ENABLE LOCATION", true); }
+            if (pin !== "372008") { return openModal("Access Denied", "Incorrect secret access pin. Please check your invitation.", "fas fa-lock", "RETRY"); }
+
+            document.getElementById('btnText').style.display = "none";
+            document.getElementById('loader').style.display = "block";
+
+            // Dashboard redirect animation
+            gsap.to("#login-card", {
+                opacity: 0, scale: 1.1, filter: "blur(10px)", duration: 1.5, ease: "power3.in", delay: 0.5,
+                onComplete: () => {
+                    localStorage.setItem("albumAccessKey", "granted");
+                    localStorage.setItem("viewerName", name.toUpperCase());
+                    window.location.href = "gallery.html";
+                }
+            });
+        });
+    </script>
+</body>
+</html>
